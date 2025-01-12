@@ -35,5 +35,5 @@ void FreeChunk(byteChunk *chunk) {
 
 int AddConstant(byteChunk *chunk, Value value) {
   WriteValueArray(&chunk->constants, value);
-  return chunk->constants.count - 1;
+  return chunk->constants.count; // Removed -1 as it was not working right.
 }

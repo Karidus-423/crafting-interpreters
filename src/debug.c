@@ -16,6 +16,7 @@ static int SimpleInstruction(const char *name, int offset) {
 }
 
 static int ConstantInstruction(const char *name, byteChunk *chunk, int offset) {
+  // Keep an eye on this change +1 to +2. +1 did not work but +2 did.
   uint8_t constant = chunk->code[offset + 1];
 
   printf("%-16s %4d '", name, constant);
@@ -39,6 +40,16 @@ int DissasembleInstruction(byteChunk *chunk, int offset) {
   switch (instruction) {
   case OP_CONSTANT:
     return ConstantInstruction("OP_CONSTANT", chunk, offset);
+  case OP_NEGATE:
+    return SimpleInstruction("OP_NEGATE", offset);
+  case OP_ADD:
+    return SimpleInstruction("OP_ADD", offset);
+  case OP_SUBTRACT:
+    return SimpleInstruction("OP_SUBTRACT", offset);
+  case OP_MULTIPLY:
+    return SimpleInstruction("OP_MULTIPLY", offset);
+  case OP_DIVIDE:
+    return SimpleInstruction("OP_DIVIDE", offset);
   case OP_RETURN:
     return SimpleInstruction("OP_RETURN", offset);
   default:
