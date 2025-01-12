@@ -1,6 +1,7 @@
 #include "virtual-machine.h"
 #include "chunk.h"
 #include "common.h"
+#include "compiler.h"
 #include "debug.h"
 #include "value.h"
 #include <stdio.h>
@@ -93,8 +94,7 @@ static interpretResult Run() {
 #undef BINARY_OP
 }
 
-interpretResult Interpret(byteChunk *chunk) {
-  virtual_machine.chunk = chunk;
-  virtual_machine.ip = virtual_machine.chunk->code;
-  return Run();
+interpretResult Interpret(const char *source) {
+  Compile(source);
+  return INTERPRET_OK;
 }
