@@ -1,6 +1,3 @@
-#include "chunk.h"
-#include "common.h"
-#include "debug.h"
 #include "virtual-machine.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,7 +34,7 @@ void Repl() {
   for (;;) {
     printf("> ");
 
-    if (fgets(line, sizeof(line), stdin) != true) {
+    if (!fgets(line, sizeof(line), stdin)) {
       printf("\n");
       break;
     }
@@ -48,7 +45,7 @@ void Repl() {
 
 static void RunFile(const char *path) {
   char *source = ReadFile(path);
-  interpretResult result = interpret(source);
+  interpretResult result = Interpret(source);
   free(source);
 
   if (result == INTERPRET_COMPILE_ERROR)
